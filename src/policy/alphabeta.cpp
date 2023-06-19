@@ -93,7 +93,7 @@ int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingP
     }
 }
 
-function alphabeta(node, depth, α, β, maximizingPlayer) is
+/*function alphabeta(node, depth, α, β, maximizingPlayer) is
     if depth == 0 or node is terminal then
         return the heuristic value of node
     if maximizingPlayer then
@@ -111,4 +111,4 @@ function alphabeta(node, depth, α, β, maximizingPlayer) is
             β := min(β, value)
             if B <= α then
                 break (* α cutoff *)
-        return value
+        return value*/
