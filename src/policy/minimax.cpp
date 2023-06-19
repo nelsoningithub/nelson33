@@ -20,7 +20,6 @@
  */
 
 Move Minimax::get_move(State *state, int depth) {
-    
     /*if(!state->legal_actions.size())
         state->get_legal_actions();
     auto actions = state->legal_actions;
@@ -91,6 +90,7 @@ int Minimax::minimax(State* state ,int depth) {
         return value;
     }
 }
+    /*i
 
 //sudocode
 /*function minimax(node, depth, maximizingPlayer) is
