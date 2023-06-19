@@ -46,7 +46,7 @@ Move Alphabeta::get_move(State *state, int depth) {
     
     for (auto& action : actions) {
         State* nextState = state->next_state(action);
-        int value = alphabeta(nextState, depth - 1, -2e9, 2e9, false);
+        int value = alphabeta(nextState, depth - 1, -2e9, 2e9, true);
         //delete nextState;
 
         if (value > bestValue) {
@@ -90,7 +90,7 @@ int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingP
             if (b <= a)
                 break;
         }
-        return value * -1;
+        return value;
     }
 }
 
