@@ -84,7 +84,7 @@ int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingP
         auto actions = state->legal_actions;
         for ( auto act : actions) {
             State *next_state = state->next_state(act);
-            value = std::min(value, alphabeta(next_state, depth - 1, a, b, true)) ;
+            value = std::min(value, alphabeta(next_state, depth - 1, a, b, true));
             //delete next_state;
             b = std::min(b, value);
             if (b <= a)
