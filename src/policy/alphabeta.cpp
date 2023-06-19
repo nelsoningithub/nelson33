@@ -63,15 +63,18 @@ int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingP
     if(!state->legal_actions.size())
         state->get_legal_actions();
     auto actions = state->legal_actions;
-    if (depth <= 0 || actions.empty()) {
+    if (depth <= 0 || actions.empty() && maximizingPlayer) {
         return state->evaluate();
+    }
+    else if(depth <= 0 || actions.empty() && !maximizingPlayer) {
+        return state->evaluate() * -1;
     }
     else if(maximizingPlayer){
         int value = -2e9;
         auto actions = state->legal_actions;
         for ( auto act : actions) {
             State *next_state = state->next_state(act);
-            value = std::max(value, alphabeta(next_state, depth - 1, a, b, false) * -1);
+            value = std::max(value, alphabeta(next_state, depth - 1, a, b, false));
             //delete next_state;
             a = std::max(a, value);
             if (a >= b)
