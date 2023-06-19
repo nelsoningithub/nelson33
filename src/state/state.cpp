@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <cstdint>
+#include <cmath>
 
 #include "./state.hpp"
 #include "../config.hpp"
@@ -11,10 +12,62 @@
  * 
  * @return int 
  */
+
 int State::evaluate(){
-  // [TODO] design your own evaluation function
-  return 0;
+    int value_self = 0;
+    int value_oppo = 0;
+
+    
+      auto self_board_self = this->board.board[player];
+      auto self_board_opponent = this->board.board[1-player];
+      const int piece_scores_self[] = {0, 1, 5, 3, 3, 9, 1000000000};
+      const int piece_scores_opponent[] = {0, -1, -5, -3, -3, -9, -1000000000}; 
+
+      for (int i = 0; i < BOARD_H; i++) {
+        for (int j = 0; j < BOARD_W; j++) {
+          int now_piece = self_board_self[i][j];
+          value_self += piece_scores_self[now_piece];
+
+        }
+      }
+
+      for (int i = 0; i < BOARD_H; i++) {
+        for (int j = 0; j < BOARD_W; j++) {
+          int now_piece = self_board_opponent[i][j];
+          value_oppo += piece_scores_opponent[now_piece];
+        }
+      } 
+    
+    
+    return value_self + value_oppo;
 }
+
+/*int State::evaluate(){
+    int value_white = 0;
+    int value_black = 0;
+
+    auto self_board_white = this->board.board[0];
+    const int piece_scores_white[] = {0, 1, 5, 3, 3, 9, 1000000000};
+
+    for (int i = 0; i < BOARD_H; i++) {
+      for (int j = 0; j < BOARD_W; j++) {
+        int now_piece = self_board_white[i][j];
+        value_white += piece_scores_white[now_piece];
+      }
+    }
+
+    const int piece_scores_black[] = {0, -1, -5, -3, -3, -9, -1000000000};
+    auto self_board_black = this->board.board[1];
+
+    for (int i = 0; i < BOARD_H; i++) {
+      for (int j = 0; j < BOARD_W; j++) {
+        int now_piece = self_board_black[i][j];
+        value_black += piece_scores_black[now_piece];
+
+      }
+    }
+    return value_white + value_black;
+}*/
 
 
 /**
