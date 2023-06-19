@@ -46,7 +46,7 @@ Move Alphabeta::get_move(State *state, int depth) {
     
     for (auto& action : actions) {
         State* nextState = state->next_state(action);
-        int value = alphabeta(nextState, depth - 1, -2e9, 2e9, true);
+        int value = alphabeta(nextState, depth - 1, -2e9, 2e9, false);
         //delete nextState;
 
         if (value > bestValue) {
@@ -60,23 +60,24 @@ Move Alphabeta::get_move(State *state, int depth) {
 
 
 int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingPlayer) {
-    /*
     if(!state->legal_actions.size())
         state->get_legal_actions();
-    */
     auto actions = state->legal_actions;
-    if ((depth <= 0 || actions.empty() )&& maximizingPlayer) {
+     if (depth <= 0 || actions.empty()) {
+        return state->evaluate();
+    }
+    /*if ((depth <= 0 || actions.empty() )&& maximizingPlayer) {
         return state->evaluate();
     }
     else if((depth <= 0 || actions.empty() )&& !maximizingPlayer) {
         return state->evaluate() * -1;
-    }
+    }*/
     else if(maximizingPlayer){
         int value = -2e9;
-        auto actions = state->legal_actions;
+        //auto actions = state->legal_actions;
         for ( auto act : actions) {
             State *next_state = state->next_state(act);
-            value = std::max(value, alphabeta(next_state, depth - 1, a, b, false));
+            value = std::max(value, alphabeta(next_state, depth - 1, a, b, false) * -1);
             //delete next_state;
             a = std::max(a, value);
             if (a >= b)
@@ -95,7 +96,7 @@ int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingP
             if (b <= a)
                 break;
         }
-        return value;
+        return value * -1;
     }
 }
 
