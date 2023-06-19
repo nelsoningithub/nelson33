@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <cmath>
 #include <algorithm>
+#include <map>
 
 #include "../config.hpp"
 #include "../state/state.hpp"
@@ -19,15 +20,34 @@
  */
 
 Move Minimax::get_move(State *state, int depth) {
-    if (!state->legal_actions.size())
+    
+    /*if(!state->legal_actions.size())
         state->get_legal_actions();
     auto actions = state->legal_actions;
-    Move bestMove;
-    int bestValue = -1e9;   
+    std::map<int, Move> next_move;
+    State *next;
+    int maxVal = -2e9;
+    int curVal;
+    for (auto &i : actions) {
+        next = state->next_state(i);
+        curVal = -1 * minimax(next, depth - 1);
+        next_move.insert({curVal, i});
+        maxVal = std::max(maxVal, curVal);
+    }
+    return next_move[maxVal];
+    */
+    
+    if (!state->legal_actions.size())
+        state->get_legal_actions();
+    
+    auto actions = state->legal_actions;
+    Move bestMove = state->legal_actions[0];
+    int bestValue = -2e9;   
+    
     for (auto& action : actions) {
         State* nextState = state->next_state(action);
-        int value = minimax(nextState, depth - 1, true) * -1;
-//        delete nextState;
+        int value = minimax(nextState, depth - 1) * -1;
+        //delete nextState;
 
         if (value > bestValue) {
             bestValue = value;
@@ -36,145 +56,41 @@ Move Minimax::get_move(State *state, int depth) {
     }
     return bestMove;
 }
-    
 
 
-    
+int Minimax::minimax(State* state ,int depth) {
     /*if(!state->legal_actions.size())
         state->get_legal_actions();
-    if(state_player_start == 100) {
-        state_player_start = state->player;
-    }
-  
-    auto actions = state->legal_actions;
-    Move wantedaction;
 
-    if(state_player_start == state->player)
-        int val = Minimax::minimax(state, depth - 1, 1); // 获取下一个状态的评估值 
-    else if(state_player_start != state->player)
-        int val = Minimax::minimax(state, depth - 1, 0);// 获取下一个状态的评估值
-    
-    for (auto &act : actions) {
-        //int val = state->next_state(act)->evaluate();
-        State *next_state = state->next_state(act);  // 获取下一个状态
-        if(state_player_start == state->player) {
-            int val = Minimax::minimax(state, depth - 1, 1); // 获取下一个状态的评估值 
-            int next_state_value = Minimax::minimax(next_state, depth - 2, 0);
-            if(val == next_state_value) {
-               wantedaction = act;
-            } 
-        }
-        else if(state_player_start != state->player){
-            int val = Minimax::minimax(state, depth - 1, 0);// 获取下一个状态的评估值
-            int next_state_value = Minimax::minimax(next_state, depth - 2, 1);
-            if(val == next_state_value) {
-                wantedaction = act;
-            } 
-        }
-        delete next_state;
-    }
-
-    return wantedaction;
-    */
-
-
-int Minimax::minimax(State* state ,int depth, bool maximizingPlayer) {
-    if (!state->legal_actions.size())
-        state->get_legal_actions();
-    if(depth == 0) {
+    auto actions = state->legal_actions;  
+    if (depth <= 0 || actions.empty()) {
         return state->evaluate();
     }
-    else if(maximizingPlayer) {
-        int value = -1e9;
-        auto actions = state->legal_actions;
-        for ( auto act : actions) {
-            State *next_state = state->next_state(act);
-            value = std::max(value, minimax(next_state, depth-1, true) * -1);
-//            delete next_state;
-        }
-        return value;
+    State *next;
+    int retVal = -2e9;
+    for (auto &i : actions) {
+        next = state->next_state(i);
+        retVal = std::max(retVal, -1 * minimax(next, depth - 1));
     }
-    /*else if(maximizingPlayer) {
-        int value = -1e9;
-        auto actions = state->legal_actions;
-        for ( auto act : actions) {
-            State *next_state = state->next_state(act);
-            value = std::max(value, minimax(next_state, depth-1, false));
-            delete next_state;
-        }
-        return value;
-    }
-    else {
-        int value = 1e9;
-        auto actions = state->legal_actions;
-        for ( auto act : actions) {
-            State *next_state = state->next_state(act);
-            value = std::min(value, minimax(next_state, depth-1, true));
-            delete next_state;
-        }
-        return value;
-    }*/
-}
-
-
-/*Move Minimax::get_move(State *state, int depth){
+    return retVal;
+    */
     if(!state->legal_actions.size())
         state->get_legal_actions();
-  
     auto actions = state->legal_actions;
-    Move wantedaction;
-    int maxval = -1e9;
-    int minval = 1e9;
-
-    for (auto &act : actions) {
-        //int val = state->next_state(act)->evaluate();
-        State *next_state = state->next_state(act);  // 获取下一个状态
-        int val = Minimax::minimax(state, depth - 1, state->player == 0 ? 1 : 0);  // 获取下一个状态的评估值
-        delete next_state;
-        
-        if(!state->player) {
-            if(val > maxval) {
-                maxval = val;
-                wantedaction = act;
-            }
-        }
-        else {
-            if(val < minval) {
-                minval = val;
-                wantedaction = act;
-            }
-        }
-    }
-
-    return wantedaction;
-
-}
-
-int Minimax::minimax(State* state ,int depth, bool maximizingPlayer) {
-    if(depth == 0 || state->legal_actions.size()) {
+    if (depth <= 0 || actions.empty()) {
         return state->evaluate();
     }
-    else if(maximizingPlayer) {
-        int value = -1e9;
-        auto actions = state->legal_actions;
-        for ( auto act : actions) {
-            State *next_state = state->next_state(act);
-            value = std::max(value, minimax(next_state, depth-1, false));
-            delete next_state;
-        }
-        return value;
-    }
     else {
-        int value = 1e9;
+        int value = -2e9;
         auto actions = state->legal_actions;
         for ( auto act : actions) {
             State *next_state = state->next_state(act);
-            value = std::min(value, minimax(next_state, depth-1, true));
-            delete next_state;
+            value = std::max(value, minimax(next_state, depth-1) * -1);
+            //delete next_state;
         }
         return value;
     }
-}*/
+}
 
 //sudocode
 /*function minimax(node, depth, maximizingPlayer) is
