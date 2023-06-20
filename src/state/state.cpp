@@ -45,7 +45,7 @@ int State::indanger(int i, int j) {
     
     while (true) {
       if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
-      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[player][tc][tr] != 0) break;
       if(board.board[1-player][tc][tr] == 2) return 1;
       tc += rx[c];
       tc += ry[c];
