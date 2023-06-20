@@ -266,7 +266,7 @@ int State::evaluate(){
       return value_self - value_oppo;
 }
 //
-
+//
 
 /*int State::evaluate(){
     int value_white = 0;
