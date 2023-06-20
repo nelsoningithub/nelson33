@@ -31,7 +31,7 @@ int State::evaluate(){
           value_self += piece_scores[now_piece];
 
           if(now_piece == 1) {
-            for (int c = 0; c < BOARD_H; c++) {
+            for (int c = 0; c < 4; c++) {
               int tc = i + dx[c];
               int tr = j + dy[c];
 
