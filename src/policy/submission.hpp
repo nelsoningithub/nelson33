@@ -11,3 +11,5 @@ public:
   static Move get_move(State *state, int depth);
   static int alphabeta(State* state ,int depth,int a ,int b, bool  maximizingPlayer);
 };
+
+//
