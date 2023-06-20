@@ -3,7 +3,7 @@
 
 #include "../config.hpp"
 #include "../state/state.hpp"
-#include "../policy/alphabeta.hpp"
+#include "../policy/submission.hpp"
 
 
 State* root;
@@ -42,13 +42,10 @@ void write_valid_spot(std::ofstream& fout) {
   // Keep updating the output until getting killed.
   while(true) {
     // Choose a random spot.
-    //int depth = 4;
-    //while (true) {
-    auto move = Alphabeta::get_move(root, 5);
+    auto move = Submission::get_move(root, 3);
     fout << move.first.first << " " << move.first.second << " "\
          << move.second.first << " " << move.second.second << std::endl;
-         //depth++;
-    //}
+    
     // Remember to flush the output to ensure the last action is written to file.
     fout.flush();
     break;
