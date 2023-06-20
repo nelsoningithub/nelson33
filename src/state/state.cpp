@@ -17,6 +17,38 @@ int State::evaluate(){
       int value_self = 0;
       int value_oppo = 0;
 
+      const int dx[] = {1,1,-1,-1};
+      const int dy[] = {-1,-1,1,1};
+
+      //auto self_board_self = this->board.board[player];
+      //auto self_board_opponent = this->board.board[1-player];
+      const int piece_scores[] = {0, 20, 60, 70, 80, 200, 1000000000};
+      int now_piece = 0;
+
+      for (int i = 0; i < BOARD_H; i++) {
+        for (int j = 0; j < BOARD_W; j++) {
+          now_piece = board.board[player][i][j];
+          value_self += piece_scores[now_piece];
+
+          if(now_piece == 1) {
+            for (int c = 0; c < BOARD_H; c++) {
+              int tc = i + dx[c];
+              int tr = j + dy[c];
+
+              if(board.board[player][i][j] == 1) {
+                value_self += 20;
+              }
+            }
+          }
+          now_piece = board.board[1-player][i][j];
+          value_oppo += piece_scores[now_piece];
+        }
+      }
+    
+      return value_self - value_oppo;
+/*    int value_self = 0;
+      int value_oppo = 0;
+
       //auto self_board_self = this->board.board[player];
       //auto self_board_opponent = this->board.board[1-player];
       const int piece_scores[] = {0, 2, 6, 7, 8, 20, 1000000000};
@@ -33,6 +65,7 @@ int State::evaluate(){
       }
     
       return value_self - value_oppo;
+      */
 }
 
 

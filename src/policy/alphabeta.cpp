@@ -112,6 +112,8 @@ int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingP
             if a >= β then
                 break (* β cutoff *)
         return value
+        fRAD5NmOew
+
     else
         value := +∞
         for each child of node do
