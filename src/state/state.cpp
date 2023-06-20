@@ -243,11 +243,9 @@ int State::evaluate(){
                 value_self -= piece_scores[now_piece];
             }
             */
+            now_piece = board.board[1-player][i][j];
+            value_oppo += piece_scores[now_piece];
           }
-
-
-          now_piece = board.board[1-player][i][j];
-          value_oppo += piece_scores[now_piece];
         }
     
       return value_self - value_oppo;
