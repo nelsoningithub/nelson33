@@ -35,7 +35,7 @@ int State::evaluate(){
               int tc = i + dx[c];
               int tr = j + dy[c];
 
-              if(board.board[player][i][j] == 1) {
+              if(board.board[player][tc][tr] == 1) {
                 value_self += 20;
               }
             }
