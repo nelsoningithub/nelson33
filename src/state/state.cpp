@@ -134,10 +134,7 @@ int State::evaluate(){
 
               if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
               if(board.board[player][tc][tr] == 1) {
-                value_self += 20;
-              }
-              if(board.board[1-player][tc][tr] == 6) {
-                value_self += 20;
+                value_self += 50;
               }
             }
           }
@@ -153,13 +150,9 @@ int State::evaluate(){
                 if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
                 if(board.board[player][tc][tr] != 0){
                   if(indanger(tc,tr)) {
-                    value_self += 30;
+                    value_self += 50;
                     break;
                   }
-                }
-                if(board.board[1-player][tc][tr] != 0){
-                  value_self += 20;
-                  break;
                 }
                 tc += rx[c];
                 tr += ry[c];
@@ -177,11 +170,8 @@ int State::evaluate(){
               if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
               if(board.board[player][tc][tr] != 0) {
                 if(indanger(tc,tr)) {
-                  value_self += 30;
+                  value_self += 50;
                 }
-              }
-              if(board.board[1-player][tc][tr] == 6) {
-                value_self += 30;
               }
             }
           }
@@ -197,13 +187,9 @@ int State::evaluate(){
                   if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
                   if(board.board[player][tc][tr] != 0){
                     if(indanger(tc,tr)) {
-                      value_self += 30;
+                      value_self += 50;
                       break;
                     }
-                  }
-                  if(board.board[1-player][tc][tr] != 0){
-                    value_self += 20;
-                    break;
                   }
                   tc += bx[c];
                   tr += by[c];
@@ -222,17 +208,9 @@ int State::evaluate(){
                   if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
                   if(board.board[player][tc][tr] != 0){
                     if(indanger(tc,tr)) {
-                      value_self += 30;
+                      value_self += 50;
                       break;
                     }
-                  }
-                  if(board.board[1-player][tc][tr] != 0){
-                    value_self += 20;
-                    break;
-                  }
-                  if(board.board[1-player][tc][tr] == 6){
-                    value_self += 100;
-                    break;
                   }
                   tc += qx[c];
                   tr += qy[c];
