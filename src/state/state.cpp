@@ -253,7 +253,7 @@ int State::evaluate(){
 
               if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
               if(board.board[player][tc][tr] == 1) {
-                value_self += 1;
+                value_self += 10;
               }
             }
           }
