@@ -98,6 +98,7 @@ int Alphabeta::alphabeta(State* state ,int depth ,int a ,int b, bool maximizingP
         }
         return value;
     }
+    //
 }
 
 /*function alphabeta(node, depth, α, β, maximizingPlayer) is
