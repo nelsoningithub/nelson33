@@ -60,19 +60,19 @@ int State::indanger(int i, int j) {
       return 1;
     }
   }
-  for (int c = 0; c < 4; c++) {
+  /*for (int c = 0; c < 4; c++) {
     int tc = i + bx[c];
     int tr = j + by[c];
     
     while (true) {
       if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
-      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[player][tc][tr] != 0) break;
       if(board.board[1-player][tc][tr] == 4) return 1;
       tc += bx[c];
       tc += by[c];
     }
   }
-  /*for (int c = 0; c < 8; c++) {
+  for (int c = 0; c < 8; c++) {
     int tc = i + qx[c];
     int tr = j + qy[c];
     
@@ -186,7 +186,7 @@ int State::evaluate(){
             }
           }
           //bishop
-          if(now_piece == 4) {
+          /*if(now_piece == 4) {
             if(indanger(i,j)) 
               value_self -= piece_scores[now_piece];
             for (int c = 0; c < 4; c++) {
@@ -208,10 +208,10 @@ int State::evaluate(){
                   tc += bx[c];
                   tc += by[c];
                 }
-              }
             }
+          }
             //queen
-            /*if(now_piece == 5) {
+            if(now_piece == 5) {
               if(indanger(i,j)) 
                 value_self -= piece_scores[now_piece];
               for (int c = 0; c < 8; c++) {
