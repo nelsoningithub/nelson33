@@ -62,8 +62,8 @@ int State::evaluate(){
             if(indanger(i,j)) 
               value_self -= piece_scores[now_piece];
             for (int c = 0; c < 4; c++) {
-              int tc = i + px[c];
-              int tr = j + py[c];
+              int tc = i + rx[c];
+              int tr = j + ry[c];
 
               while (true) {
                 if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
@@ -77,8 +77,8 @@ int State::evaluate(){
                   value_self += 20;
                   break;
                 }
-                tc += px[c];
-                tc += py[c];
+                tc += rx[c];
+                tc += ry[c];
                 }
             }
           }
@@ -121,8 +121,8 @@ int State::evaluate(){
                     value_self += 20;
                     break;
                   }
-                  tc += px[c];
-                  tc += py[c];
+                  tc += bx[c];
+                  tc += by[c];
                 }
               }
             //queen
@@ -149,8 +149,8 @@ int State::evaluate(){
                     value_self += 100;
                     break;
                   }
-                  tc += px[c];
-                  tc += py[c];
+                  tc += qx[c];
+                  tc += qy[c];
                 }
               }
             }
