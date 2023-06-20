@@ -238,15 +238,15 @@ int State::evaluate(){
       const int py[] = {-1,-1,1,1};
       //auto self_board_self = this->board.board[player];
       //auto self_board_opponent = this->board.board[1-player];
-      const int piece_scores[] = {0, 1, 3, 3, 3, 9, 1000000000};
-      const int piece_scores[] = {0, 5, 7, 7, 7, 13, 1000000000};
+      const int piece_scores_self[] = {0, 1, 3, 3, 3, 9, 1000000000};
+      const int piece_scores_opponent[] = {0, 5, 7, 7, 7, 13, 1000000000};
     
       for (int i = 0; i < BOARD_H; i++) {
         for (int j = 0; j < BOARD_W; j++) {
           int now_piece = board.board[player][i][j];
-          value_self += piece_scores[now_piece];
+          value_self += piece_scores_self[now_piece];
 
-          if(now_piece == 1) {
+          /*if(now_piece == 1) {
             for (int c = 0; c < 4; c++) {
               int tc = i + px[c];
               int tr = j + py[c];
@@ -256,10 +256,10 @@ int State::evaluate(){
                 value_self += 2;
               }
             }
-          }
+          }*/
 
           now_piece = board.board[1-player][i][j];
-          value_oppo += piece_scores[now_piece];
+          value_oppo += piece_scores_opponent[now_piece];
         }
       }
     
