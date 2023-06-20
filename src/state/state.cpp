@@ -50,7 +50,7 @@ int State::indanger(int i, int j) {
       tc += ry[c];
     }
   }
-  /*for (int c = 0; c < 8; c++) {
+  for (int c = 0; c < 8; c++) {
     int tc = i + kx[c];
     int tr = j + ky[c];
     
@@ -60,7 +60,7 @@ int State::indanger(int i, int j) {
       return 1;
     }
   }
-  for (int c = 0; c < 4; c++) {
+  /*for (int c = 0; c < 4; c++) {
     int tc = i + bx[c];
     int tr = j + by[c];
     
@@ -167,7 +167,7 @@ int State::evaluate(){
             }
           }
           //knight
-          /*if(now_piece == 3) {
+          if(now_piece == 3) {
             if(indanger(i,j)) 
               value_self -= piece_scores[now_piece];
             for (int c = 0; c < 8; c++) {
@@ -186,7 +186,7 @@ int State::evaluate(){
             }
           }
           //bishop
-          if(now_piece == 4) {
+          /*if(now_piece == 4) {
             if(indanger(i,j)) 
               value_self -= piece_scores[now_piece];
             for (int c = 0; c < 4; c++) {
