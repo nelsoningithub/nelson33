@@ -216,15 +216,15 @@ int State::indanger(int i, int j) {
     }
   }
   for (int c = 0; c < 4; c++) {
-    int tc = i + px[c];
-    int tr = j + py[c];
+    int tc = i + rx[c];
+    int tr = j + ry[c];
     
     while (true) {
       if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
       if(board.board[player][tc][tr] != 0) break;;
       if(board.board[1-player][tc][tr] == 2) return 1;
-      tc += px[c];
-      tc += py[c];
+      tc += rx[c];
+      tc += ry[c];
     }
   }
   for (int c = 0; c < 8; c++) {
@@ -246,8 +246,8 @@ int State::indanger(int i, int j) {
       if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
       if(board.board[player][tc][tr] != 0) break;;
       if(board.board[1-player][tc][tr] == 4) return 1;
-      tc += px[c];
-      tc += py[c];
+      tc += bx[c];
+      tc += by[c];
     }
   }
   for (int c = 0; c < 8; c++) {
@@ -258,8 +258,8 @@ int State::indanger(int i, int j) {
       if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
       if(board.board[player][tc][tr] != 0) break;;
       if(board.board[1-player][tc][tr] == 5) return 1;
-      tc += px[c];
-      tc += py[c];
+      tc += qx[c];
+      tc += qy[c];
     }
   }
   for (int c = 0; c < 8; c++) {
