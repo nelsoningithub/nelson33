@@ -235,7 +235,7 @@ int State::evaluate(){
 
       //auto self_board_self = this->board.board[player];
       //auto self_board_opponent = this->board.board[1-player];
-      const int piece_scores[] = {0, 2, 6, 7, 8, 20, 1000000000};
+      const int piece_scores[] = {0, 5, 6, 7, 8, 20, 1000000000};
       int now_piece = 0;
 
       for (int i = 0; i < BOARD_H; i++) {
