@@ -98,10 +98,10 @@ int State::indanger(int i, int j) {
 }
 
 int State::evaluate(){
-      int value_self = 0;
+      /*int value_self = 0;
       int value_oppo = 0;
 
-      /*
+      
       //pawn
       const int px[] = {1,1,-1,-1};
       const int py[] = {-1,-1,1,1};
