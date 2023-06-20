@@ -17,29 +17,150 @@ int State::evaluate(){
       int value_self = 0;
       int value_oppo = 0;
 
-      const int dx[] = {1,1,-1,-1};
-      const int dy[] = {-1,-1,1,1};
-
-      //auto self_board_self = this->board.board[player];
-      //auto self_board_opponent = this->board.board[1-player];
+      //pawn
+      const int px[] = {1,1,-1,-1};
+      const int py[] = {-1,-1,1,1};
+      //rook
+      const int rx[] = {0,0,1,-1};
+      const int ry[] = {1,-1,0,0};
+      //knight
+      const int kx[] = {1,2,2,1,-1,-2,-2,-1};
+      const int ky[] = {-2,-1,1,2,2,1,-1,-1};
+      //bishop
+      const int bx[] = {1,1,-1,-1};
+      const int by[] = {1,-1,1,-1};
+      //queen
+      const int qx[] = {1,1,1,0,-1,-1,-1,0};
+      const int qy[] = {-1,0,1,1,1,0,-1,-1};
       const int piece_scores[] = {0, 20, 60, 70, 80, 200, 1000000000};
       int now_piece = 0;
 
       for (int i = 0; i < BOARD_H; i++) {
         for (int j = 0; j < BOARD_W; j++) {
-          now_piece = board.board[player][i][j];
-          value_self += piece_scores[now_piece];
+          //now_piece = board.board[player][i][j];
+          //value_self += piece_scores[now_piece];
 
+          //pawn
           if(now_piece == 1) {
+            if(indanger(i,j)) 
+              value_self -= piece_scores[now_piece];
             for (int c = 0; c < 4; c++) {
-              int tc = i + dx[c];
-              int tr = j + dy[c];
+              int tc = i + px[c];
+              int tr = j + py[c];
 
+              if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
               if(board.board[player][tc][tr] == 1) {
+                value_self += 20;
+              }
+              if(board.board[1-player][tc][tr] == 6) {
                 value_self += 20;
               }
             }
           }
+          //rook
+          if(now_piece == 2) {
+            if(indanger(i,j)) 
+              value_self -= piece_scores[now_piece];
+            for (int c = 0; c < 4; c++) {
+              int tc = i + px[c];
+              int tr = j + py[c];
+
+              while (true) {
+                if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+                if(board.board[player][tc][tr] != 0){
+                  if(indanger(tc,tr)) {
+                    value_self += 30;
+                    break;
+                  }
+                }
+                if(board.board[1-player][tc][tr] != 0){
+                  value_self += 20;
+                  break;
+                }
+                tc += px[c];
+                tc += py[c];
+                }
+            }
+          }
+          //knight
+          if(now_piece == 3) {
+            if(indanger(i,j)) 
+              value_self -= piece_scores[now_piece];
+            for (int c = 0; c < 8; c++) {
+              int tc = i + kx[c];
+              int tr = j + ky[c];
+
+              if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
+              if(board.board[player][tc][tr] != 0) {
+                if(indanger(tc,tr)) {
+                  value_self += 30;
+                }
+              }
+              if(board.board[1-player][tc][tr] == 6) {
+                value_self += 30;
+              }
+            }
+          }
+          //bishop
+          if(now_piece == 4) {
+            if(indanger(i,j)) 
+              value_self -= piece_scores[now_piece];
+            for (int c = 0; c < 4; c++) {
+                int tc = i + bx[c];
+                int tr = j + by[c];
+
+                while (true) {
+                  if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+                  if(board.board[player][tc][tr] != 0){
+                    if(indanger(tc,tr)) {
+                      value_self += 30;
+                      break;
+                    }
+                  }
+                  if(board.board[1-player][tc][tr] != 0){
+                    value_self += 20;
+                    break;
+                  }
+                  tc += px[c];
+                  tc += py[c];
+                }
+              }
+            //queen
+            if(now_piece == 5) {
+              if(indanger(i,j)) 
+                value_self -= piece_scores[now_piece];
+              for (int c = 0; c < 8; c++) {
+                int tc = i + qx[c];
+                int tr = j + qy[c];
+
+                while (true) {
+                  if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+                  if(board.board[player][tc][tr] != 0){
+                    if(indanger(tc,tr)) {
+                      value_self += 30;
+                      break;
+                    }
+                  }
+                  if(board.board[1-player][tc][tr] != 0){
+                    value_self += 20;
+                    break;
+                  }
+                  if(board.board[1-player][tc][tr] == 6){
+                    value_self += 100;
+                    break;
+                  }
+                  tc += px[c];
+                  tc += py[c];
+                }
+              }
+            }
+            if(now_piece == 6) {
+              if(indanger(i,j)) 
+                value_self -= piece_scores[now_piece];
+            }
+          }
+
+
           now_piece = board.board[1-player][i][j];
           value_oppo += piece_scores[now_piece];
         }
@@ -68,6 +189,92 @@ int State::evaluate(){
       */
 }
 
+int State::indanger(int i, int j) {
+  //pawn
+  const int px[] = {1,1,-1,-1};
+  const int py[] = {-1,-1,1,1};
+  //rook
+  const int rx[] = {0,0,1,-1};
+  const int ry[] = {1,-1,0,0};
+  //knight
+  const int kx[] = {1,2,2,1,-1,-2,-2,-1};
+  const int ky[] = {-2,-1,1,2,2,1,-1,-1};
+  //bishop
+  const int bx[] = {1,1,-1,-1};
+  const int by[] = {1,-1,1,-1};
+  //queen
+  const int qx[] = {1,1,1,0,-1,-1,-1,0};
+  const int qy[] = {-1,0,1,1,1,0,-1,-1};
+  for (int c = 0; c < 4; c++) {
+    int tc = i + px[c];
+    int tr = j + py[c];
+
+    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
+
+    if(board.board[1-player][tc][tr] == 1){
+      return 1;
+    }
+  }
+  for (int c = 0; c < 4; c++) {
+    int tc = i + px[c];
+    int tr = j + py[c];
+    
+    while (true) {
+      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[1-player][tc][tr] == 2) return 1;
+      tc += px[c];
+      tc += py[c];
+    }
+  }
+  for (int c = 0; c < 8; c++) {
+    int tc = i + kx[c];
+    int tr = j + ky[c];
+    int rook = 0;
+    
+    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
+
+    if(board.board[1-player][tc][tr] == 3){
+      return 1;
+    }
+  }
+  for (int c = 0; c < 4; c++) {
+    int tc = i + bx[c];
+    int tr = j + by[c];
+    
+    while (true) {
+      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[1-player][tc][tr] == 4) return 1;
+      tc += px[c];
+      tc += py[c];
+    }
+  }
+  for (int c = 0; c < 8; c++) {
+    int tc = i + qx[c];
+    int tr = j + qy[c];
+    
+    while (true) {
+      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[1-player][tc][tr] == 5) return 1;
+      tc += px[c];
+      tc += py[c];
+    }
+  }
+  for (int c = 0; c < 8; c++) {
+    int tc = i + qx[c];
+    int tr = j + qy[c];
+
+    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
+
+    if(board.board[1-player][tc][tr] == 6){
+      return 1;
+    }
+  }
+  return 0;
+}
+
 
 /*int State::evaluate(){
     int value_white = 0;
@@ -75,7 +282,7 @@ int State::evaluate(){
 
     auto self_board_white = this->board.board[0];
     const int piece_scores_white[] = {0, 1, 5, 3, 3, 9, 1000000000};
-
+ 
     for (int i = 0; i < BOARD_H; i++) {
       for (int j = 0; j < BOARD_W; j++) {
         int now_piece = self_board_white[i][j];
