@@ -101,6 +101,7 @@ int State::evaluate(){
       int value_self = 0;
       int value_oppo = 0;
 
+      /*
       //pawn
       const int px[] = {1,1,-1,-1};
       const int py[] = {-1,-1,1,1};
@@ -228,7 +229,8 @@ int State::evaluate(){
         }
     
       return value_self - value_oppo;
-/*    int value_self = 0;
+      */
+      int value_self = 0;
       int value_oppo = 0;
 
       //auto self_board_self = this->board.board[player];
@@ -247,7 +249,6 @@ int State::evaluate(){
       }
     
       return value_self - value_oppo;
-      */
 }
 
 
