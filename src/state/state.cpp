@@ -47,7 +47,7 @@ int State::indanger(int i, int j) {
       if(board.board[player][tc][tr] != 0) break;
       if(board.board[1-player][tc][tr] == 2) return 1;
       tc += rx[c];
-      tc += ry[c];
+      tr += ry[c];
     }
   }
   for (int c = 0; c < 8; c++) {
@@ -69,7 +69,7 @@ int State::indanger(int i, int j) {
       if(board.board[player][tc][tr] != 0) break;
       if(board.board[1-player][tc][tr] == 4) return 1;
       tc += bx[c];
-      tc += by[c];
+      tr += by[c];
     }
   }*/
   for (int c = 0; c < 8; c++) {
@@ -78,10 +78,10 @@ int State::indanger(int i, int j) {
     
     while (true) {
       if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
-      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[player][tc][tr] != 0) break;
       if(board.board[1-player][tc][tr] == 5) return 1;
       tc += qx[c];
-      tc += qy[c];
+      tr += qy[c];
     }
   }
   /*for (int c = 0; c < 8; c++) {
@@ -162,7 +162,7 @@ int State::evaluate(){
                   break;
                 }
                 tc += rx[c];
-                tc += ry[c];
+                tr += ry[c];
                 }
             }
           }
@@ -206,7 +206,7 @@ int State::evaluate(){
                     break;
                   }
                   tc += bx[c];
-                  tc += by[c];
+                  tr += by[c];
                 }
             }
           }*/
@@ -235,7 +235,7 @@ int State::evaluate(){
                     break;
                   }
                   tc += qx[c];
-                  tc += qy[c];
+                  tr += qy[c];
                 }
               }
             }
