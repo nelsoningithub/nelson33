@@ -249,7 +249,6 @@ int State::evaluate(){
           now_piece = board.board[1-player][i][j];
           value_oppo += piece_scores[now_piece];
         }
-      }
     
       return value_self - value_oppo;
 /*    int value_self = 0;
