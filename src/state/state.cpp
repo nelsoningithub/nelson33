@@ -246,7 +246,7 @@ int State::evaluate(){
           int now_piece = board.board[player][i][j];
           value_self += piece_scores_self[now_piece];
           if(now_piece != 0) {
-            value_self += board.position_value[player][i][j] ;
+            value_self += board.position_value[player][i][j] * abs(1e9 - now_piece);
           }
 
           /*if(now_piece == 1) {
