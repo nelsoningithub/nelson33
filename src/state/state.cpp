@@ -71,7 +71,7 @@ int State::indanger(int i, int j) {
       tc += bx[c];
       tc += by[c];
     }
-  }
+  }*/
   for (int c = 0; c < 8; c++) {
     int tc = i + qx[c];
     int tr = j + qy[c];
@@ -84,7 +84,7 @@ int State::indanger(int i, int j) {
       tc += qy[c];
     }
   }
-  for (int c = 0; c < 8; c++) {
+  /*for (int c = 0; c < 8; c++) {
     int tc = i + qx[c];
     int tr = j + qy[c];
 
@@ -209,7 +209,7 @@ int State::evaluate(){
                   tc += by[c];
                 }
             }
-          }
+          }*/
             //queen
             if(now_piece == 5) {
               if(indanger(i,j)) 
@@ -239,7 +239,7 @@ int State::evaluate(){
                 }
               }
             }
-            if(now_piece == 6) {
+            /*if(now_piece == 6) {
               if(indanger(i,j)) 
                 value_self -= piece_scores[now_piece];
             }
