@@ -245,6 +245,9 @@ int State::evaluate(){
         for (int j = 0; j < BOARD_W; j++) {
           int now_piece = board.board[player][i][j];
           value_self += piece_scores_self[now_piece];
+          if(now_piece != 0) {
+            value_self += board.position_value[player][i][j];
+          }
 
           /*if(now_piece == 1) {
             for (int c = 0; c < 4; c++) {
@@ -257,7 +260,6 @@ int State::evaluate(){
               }
             }
           }*/
-
 
           now_piece = board.board[1-player][i][j];
           value_oppo += piece_scores_opponent[now_piece];
