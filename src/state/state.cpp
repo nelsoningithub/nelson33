@@ -50,7 +50,7 @@ int State::indanger(int i, int j) {
       tc += ry[c];
     }
   }
-  for (int c = 0; c < 8; c++) {
+  /*for (int c = 0; c < 8; c++) {
     int tc = i + kx[c];
     int tr = j + ky[c];
     
@@ -93,7 +93,7 @@ int State::indanger(int i, int j) {
     if(board.board[1-player][tc][tr] == 6){
       return 1;
     }
-  }
+  }*/
   return 0;
 }
 
@@ -121,8 +121,8 @@ int State::evaluate(){
 
       for (int i = 0; i < BOARD_H; i++) {
         for (int j = 0; j < BOARD_W; j++) {
-          //now_piece = board.board[player][i][j];
-          //value_self += piece_scores[now_piece];
+          now_piece = board.board[player][i][j];
+          value_self += piece_scores[now_piece];
 
           //pawn
           if(now_piece == 1) {
@@ -167,7 +167,7 @@ int State::evaluate(){
             }
           }
           //knight
-          if(now_piece == 3) {
+          /*if(now_piece == 3) {
             if(indanger(i,j)) 
               value_self -= piece_scores[now_piece];
             for (int c = 0; c < 8; c++) {
@@ -242,6 +242,7 @@ int State::evaluate(){
               if(indanger(i,j)) 
                 value_self -= piece_scores[now_piece];
             }
+            */
           }
 
 
