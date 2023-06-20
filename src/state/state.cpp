@@ -234,8 +234,8 @@ int State::evaluate(){
       int value_oppo = 0;
 
       //pawn
-      const int px[] = {1,1,-1,-1};
-      const int py[] = {-1,-1,1,1};
+      //const int px[] = {1,1,-1,-1};
+      //const int py[] = {-1,-1,1,1};
       //auto self_board_self = this->board.board[player];
       //auto self_board_opponent = this->board.board[1-player];
       const int piece_scores_self[] = {0, 2, 6, 7, 8, 200, 1000000000};
@@ -246,7 +246,7 @@ int State::evaluate(){
           int now_piece = board.board[player][i][j];
           value_self += piece_scores_self[now_piece];
           if(now_piece != 0) {
-            value_self += board.position_value[player][i][j] * abs(1e9 - now_piece);
+            value_self += board.position_value[player][i][j];
           }
 
           /*if(now_piece == 1) {
