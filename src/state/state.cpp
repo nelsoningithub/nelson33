@@ -13,6 +13,92 @@
  * @return int 
  */
 
+int State::indanger(int i, int j) {
+  //pawn
+  const int px[] = {1,1,-1,-1};
+  const int py[] = {-1,-1,1,1};
+  //rook
+  const int rx[] = {0,0,1,-1};
+  const int ry[] = {1,-1,0,0};
+  //knight
+  const int kx[] = {1,2,2,1,-1,-2,-2,-1};
+  const int ky[] = {-2,-1,1,2,2,1,-1,-1};
+  //bishop
+  const int bx[] = {1,1,-1,-1};
+  const int by[] = {1,-1,1,-1};
+  //queen
+  const int qx[] = {1,1,1,0,-1,-1,-1,0};
+  const int qy[] = {-1,0,1,1,1,0,-1,-1};
+  for (int c = 0; c < 4; c++) {
+    int tc = i + px[c];
+    int tr = j + py[c];
+
+    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
+
+    if(board.board[1-player][tc][tr] == 1){
+      return 1;
+    }
+  }
+  for (int c = 0; c < 4; c++) {
+    int tc = i + rx[c];
+    int tr = j + ry[c];
+    
+    while (true) {
+      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[1-player][tc][tr] == 2) return 1;
+      tc += rx[c];
+      tc += ry[c];
+    }
+  }
+  for (int c = 0; c < 8; c++) {
+    int tc = i + kx[c];
+    int tr = j + ky[c];
+    int rook = 0;
+    
+    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
+
+    if(board.board[1-player][tc][tr] == 3){
+      return 1;
+    }
+  }
+  for (int c = 0; c < 4; c++) {
+    int tc = i + bx[c];
+    int tr = j + by[c];
+    
+    while (true) {
+      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[1-player][tc][tr] == 4) return 1;
+      tc += bx[c];
+      tc += by[c];
+    }
+  }
+  for (int c = 0; c < 8; c++) {
+    int tc = i + qx[c];
+    int tr = j + qy[c];
+    
+    while (true) {
+      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
+      if(board.board[player][tc][tr] != 0) break;;
+      if(board.board[1-player][tc][tr] == 5) return 1;
+      tc += qx[c];
+      tc += qy[c];
+    }
+  }
+  for (int c = 0; c < 8; c++) {
+    int tc = i + qx[c];
+    int tr = j + qy[c];
+
+    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
+
+    if(board.board[1-player][tc][tr] == 6){
+      return 1;
+    }
+  }
+  return 0;
+}
+
 int State::evaluate(){
       int value_self = 0;
       int value_oppo = 0;
@@ -189,91 +275,6 @@ int State::evaluate(){
       */
 }
 
-int State::indanger(int i, int j) {
-  //pawn
-  const int px[] = {1,1,-1,-1};
-  const int py[] = {-1,-1,1,1};
-  //rook
-  const int rx[] = {0,0,1,-1};
-  const int ry[] = {1,-1,0,0};
-  //knight
-  const int kx[] = {1,2,2,1,-1,-2,-2,-1};
-  const int ky[] = {-2,-1,1,2,2,1,-1,-1};
-  //bishop
-  const int bx[] = {1,1,-1,-1};
-  const int by[] = {1,-1,1,-1};
-  //queen
-  const int qx[] = {1,1,1,0,-1,-1,-1,0};
-  const int qy[] = {-1,0,1,1,1,0,-1,-1};
-  for (int c = 0; c < 4; c++) {
-    int tc = i + px[c];
-    int tr = j + py[c];
-
-    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
-
-    if(board.board[1-player][tc][tr] == 1){
-      return 1;
-    }
-  }
-  for (int c = 0; c < 4; c++) {
-    int tc = i + rx[c];
-    int tr = j + ry[c];
-    
-    while (true) {
-      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
-      if(board.board[player][tc][tr] != 0) break;;
-      if(board.board[1-player][tc][tr] == 2) return 1;
-      tc += rx[c];
-      tc += ry[c];
-    }
-  }
-  for (int c = 0; c < 8; c++) {
-    int tc = i + kx[c];
-    int tr = j + ky[c];
-    int rook = 0;
-    
-    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
-
-    if(board.board[1-player][tc][tr] == 3){
-      return 1;
-    }
-  }
-  for (int c = 0; c < 4; c++) {
-    int tc = i + bx[c];
-    int tr = j + by[c];
-    
-    while (true) {
-      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
-      if(board.board[player][tc][tr] != 0) break;;
-      if(board.board[1-player][tc][tr] == 4) return 1;
-      tc += bx[c];
-      tc += by[c];
-    }
-  }
-  for (int c = 0; c < 8; c++) {
-    int tc = i + qx[c];
-    int tr = j + qy[c];
-    
-    while (true) {
-      if(tc < 0 || tc > 5 || tr < 0 || tr > 4) break;  
-      if(board.board[player][tc][tr] != 0) break;;
-      if(board.board[1-player][tc][tr] == 5) return 1;
-      tc += qx[c];
-      tc += qy[c];
-    }
-  }
-  for (int c = 0; c < 8; c++) {
-    int tc = i + qx[c];
-    int tr = j + qy[c];
-
-    if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
-
-    if(board.board[1-player][tc][tr] == 6){
-      return 1;
-    }
-  }
-  return 0;
-}
 
 
 /*int State::evaluate(){
