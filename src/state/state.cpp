@@ -239,14 +239,14 @@ int State::evaluate(){
       //auto self_board_self = this->board.board[player];
       //auto self_board_opponent = this->board.board[1-player];
       const int piece_scores_self[] = {0, 2, 6, 7, 8, 100, 1000000000};
-      const int piece_scores_opponent[] = {0, 5, 9, 10, 11, 200, 1000000000};
+      const int piece_scores_opponent[] = {0, 2, 7, 8, 8, 100, 1000000000};
     
       for (int i = 0; i < BOARD_H; i++) {
         for (int j = 0; j < BOARD_W; j++) {
           int now_piece = board.board[player][i][j];
           value_self += piece_scores_self[now_piece];
           if(now_piece != 0) {
-            value_self += board.position_value[player][i][j];
+            value_self += board.position_value[player][i][j] ;
           }
 
           /*if(now_piece == 1) {
