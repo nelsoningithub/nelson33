@@ -250,7 +250,7 @@ int State::evaluate(){
     
       return value_self - value_oppo;
 }
-
+//
 
 
 /*int State::evaluate(){
