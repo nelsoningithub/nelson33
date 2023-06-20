@@ -35,9 +35,8 @@ int State::indanger(int i, int j) {
 
     if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
 
-    if(board.board[1-player][tc][tr] == 1){
+    if(board.board[1-player][tc][tr] == 1)
       return 1;
-    }
   }
   for (int c = 0; c < 4; c++) {
     int tc = i + rx[c];
@@ -54,7 +53,6 @@ int State::indanger(int i, int j) {
   for (int c = 0; c < 8; c++) {
     int tc = i + kx[c];
     int tr = j + ky[c];
-    int rook = 0;
     
     if(tc < 0 || tc > 5 || tr < 0 || tr > 4) continue;
 

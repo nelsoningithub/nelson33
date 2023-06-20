@@ -90,7 +90,6 @@ int Minimax::minimax(State* state ,int depth) {
         return value;
     }
 }
-    /*i
 
 //sudocode
 /*function minimax(node, depth, maximizingPlayer) is
